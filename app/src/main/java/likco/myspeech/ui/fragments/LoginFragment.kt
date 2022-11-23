@@ -65,8 +65,10 @@ fun LoginScreen(state: MutableState<Fragments>) = Column(
         Button(
             onClick = {
                 catching {
+
                     App.user = App.userController.login(login, password)
                     state.value = Fragments.MAIN
+
                 }
             },
             modifier = Modifier

@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import likco.myspeech.App
 import likco.myspeech.ui.Fragments
-import likco.myspeech.utils.catch
 import likco.myspeech.utils.catching
 
 @Composable

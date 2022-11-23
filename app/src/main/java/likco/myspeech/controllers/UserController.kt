@@ -1,6 +1,6 @@
 package likco.myspeech.controllers
 
-import likco.myspeech.models.User
+import likco.myspeech.repository.models.User
 import likco.myspeech.repository.UserRepository
 import org.mindrot.jbcrypt.BCrypt
 

@@ -1,7 +1,7 @@
 package likco.myspeech
 
 import likco.myspeech.controllers.UserController
-import likco.myspeech.models.User
+import likco.myspeech.repository.models.User
 import likco.myspeech.utils.OnError
 
 object App {

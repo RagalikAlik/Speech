@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
-import likco.myspeech.models.User
+import likco.myspeech.repository.models.User
 
 
 class UserRepository(db: FirebaseFirestore) {
