@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "331045324362",
+    "firebase_url": "https://myspeech-a7a1a-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "myspeech-a7a1a",
+    "storage_bucket": "myspeech-a7a1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331045324362:android:a307e289edd2e423bc88b3",
+        "android_client_info": {
+          "package_name": "likco.myspeech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331045324362-3h0rufv5dqtr3spvbcbko2dnrpv5ilrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIC54CdNqfUi9wvMJqy407-GC19YNZC_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331045324362-3h0rufv5dqtr3spvbcbko2dnrpv5ilrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
