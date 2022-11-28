@@ -14,6 +14,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
@@ -26,6 +28,7 @@ import likco.myspeech.ui.fragments.LoginScreen
 import likco.myspeech.ui.fragments.MainScreen
 import likco.myspeech.ui.fragments.SignupScreen
 import likco.myspeech.ui.fragments.ProfileScreen
+import likco.myspeech.ui.fragments.SingleChatScreen
 import likco.myspeech.ui.theme.MySpeechTheme
 
 class MainActivity : ComponentActivity() {
@@ -69,6 +72,7 @@ class MainActivity : ComponentActivity() {
                             Fragments.MAIN -> MainScreen(currentState)
                             Fragments.PROFILE-> ProfileScreen(currentState)
                             Fragments.SETTINGS-> ProfileScreen(currentState)
+                            Fragments.SINGLECHATFRAGMENT-> SingleChatScreen(currentState)
                         }
                     }
                 )

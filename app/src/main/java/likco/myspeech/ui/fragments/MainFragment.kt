@@ -1,25 +1,23 @@
 package likco.myspeech.ui.fragments
 
 import android.annotation.SuppressLint
-import android.text.style.BackgroundColorSpan
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import likco.myspeech.App
 import likco.myspeech.R
 import likco.myspeech.ui.Fragments
-import likco.myspeech.utils.catching
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -41,24 +39,37 @@ fun MyScaffold(state: MutableState<Fragments>) {
     Scaffold(
         scaffoldState = scaffoldState,
         contentColor = colorResource(id = R.color.purple_200),
-        topBar = { MyTopAppBar(scaffoldState = scaffoldState, scope = scope) },
+        topBar = { MyTopAppBar(scaffoldState = scaffoldState, scope = scope, state) },
         drawerContent = { MyColumn(state) },
         content = {
             MyRow()
+            Button(onClick = { state.value=Fragments.SINGLECHATFRAGMENT }) {
+                
+            }
         }
     )
 }
 
 @Composable
-fun MyTopAppBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
+fun MyTopAppBar(scaffoldState: ScaffoldState, scope: CoroutineScope, state: MutableState<Fragments>) {
     val drawerState = scaffoldState.drawerState
 
     TopAppBar(
+        navigationIcon = {
+            IconButton(onClick = {  }) {
+                Icon(Icons.Default.Home,
+                    null,
+                    modifier = Modifier
+                        .background(Color(1, 1,1))
+
+                )
+            }
+        },
         title = {
             Text(
                 text = "Speech",
-                color = Color.White,
-                modifier = Modifier.padding(horizontal = 60.dp)
+                color = White,
+                modifier = Modifier.padding(horizontal = 30.dp)
             )
         },
         backgroundColor = colorResource(id = R.color.purple_200)
@@ -79,7 +90,7 @@ fun MyColumn(state: MutableState<Fragments>) {
         modifier = Modifier.fillMaxSize()
     ) {
         Box(modifier = Modifier
-            .background(Color.White)
+            .background(White)
             .fillMaxWidth()
             .weight(1.5f),
             content = {
@@ -114,19 +125,24 @@ fun MyColumn(state: MutableState<Fragments>) {
             }
         )
         Box(modifier = Modifier
-            .background(Color.White)
+            .background(White)
             .fillMaxWidth()
             .weight(1f))
+
         Box(modifier = Modifier
-            .background(Color.Blue)
+            //.background(Color.Blue)
+            .background(White)
             .fillMaxWidth()
             .weight(1f))
+
         Box(modifier = Modifier
-            .background(Color.Red)
+            //.background(Color.Red)
+            // .background(Color.White)
             .fillMaxWidth()
             .weight(1f))
+
         Box(modifier = Modifier
-            .background(Color.White)
+            .background(White)
             .fillMaxWidth()
             .height(75.dp),
             content = {
@@ -134,11 +150,23 @@ fun MyColumn(state: MutableState<Fragments>) {
                     onClick = {
                         state.value = Fragments.SETTINGS
                     },
+
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 25.dp)
+                        .padding(horizontal = 25.dp),
+
                 ) {
-                    Text(text = "Settings")
+                    Row(
+                        modifier= Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                    ) {
+                        Icon(Icons.Default.Settings,
+                            null
+                        )
+                        Text(text = "Settings", textAlign = TextAlign.Start)
+                    }
+
                 }
             }
         )

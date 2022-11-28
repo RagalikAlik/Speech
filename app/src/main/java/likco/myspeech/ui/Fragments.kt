@@ -5,5 +5,6 @@ enum class Fragments {
     SIGNUP,
     MAIN,
     PROFILE,
-    SETTINGS
+    SETTINGS,
+    SINGLECHATFRAGMENT
 }
