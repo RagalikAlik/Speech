@@ -28,6 +28,7 @@ import likco.myspeech.ui.fragments.LoginScreen
 import likco.myspeech.ui.fragments.MainScreen
 import likco.myspeech.ui.fragments.SignupScreen
 import likco.myspeech.ui.fragments.ProfileScreen
+import likco.myspeech.ui.fragments.SettingsScreen
 import likco.myspeech.ui.fragments.SingleChatScreen
 import likco.myspeech.ui.theme.MySpeechTheme
 
@@ -71,7 +72,7 @@ class MainActivity : ComponentActivity() {
                             Fragments.SIGNUP -> SignupScreen(currentState)
                             Fragments.MAIN -> MainScreen(currentState)
                             Fragments.PROFILE-> ProfileScreen(currentState)
-                            Fragments.SETTINGS-> ProfileScreen(currentState)
+                            Fragments.SETTINGS-> SettingsScreen(currentState)
                             Fragments.SINGLECHATFRAGMENT-> SingleChatScreen(currentState)
                         }
                     }
