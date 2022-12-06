@@ -6,8 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -70,23 +72,27 @@ fun SingleChatScreen(state: MutableState<Fragments>)= Column(
         Text(text = App.user?.login ?: "",fontSize = 20.sp)
     }
 
-    val messages = mutableStateListOf("говно", "жопа")
+    val messages = mutableStateListOf("speech", "huinya")
+
+
 
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .weight(1f),
         horizontalAlignment = Alignment.End,
-        verticalArrangement = Arrangement.SpaceEvenly,
+
     ){
         items(messages) {
             CreateMyMessage(message = it)
         }
     }
-
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth(),
         verticalAlignment = Alignment.Bottom
+
     ) {
         OutlinedTextField(
             value = message,
@@ -97,9 +103,8 @@ fun SingleChatScreen(state: MutableState<Fragments>)= Column(
 
         IconButton(
             onClick = {
-                messages.add( message)
-
-                      },
+                messages.add(message)
+            },
             modifier= Modifier
                 .height(65.dp)
                 .width(75.dp)

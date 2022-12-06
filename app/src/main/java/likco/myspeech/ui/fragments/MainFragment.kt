@@ -88,6 +88,7 @@ fun MyColumn(state: MutableState<Fragments>) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier.fillMaxSize()
+
     ) {
         Box(modifier = Modifier
             .background(White)
