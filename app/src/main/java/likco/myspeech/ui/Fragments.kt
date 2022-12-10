@@ -6,5 +6,6 @@ enum class Fragments {
     MAIN,
     PROFILE,
     SETTINGS,
-    SINGLECHATFRAGMENT
+    SINGLECHATFRAGMENT,
+    CONTACTS
 }

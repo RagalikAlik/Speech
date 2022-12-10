@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import likco.myspeech.controllers.UserController
 import likco.myspeech.repository.UserRepository
 import likco.myspeech.ui.Fragments
+import likco.myspeech.ui.fragments.ContactsScreen
 import likco.myspeech.ui.fragments.LoginScreen
 import likco.myspeech.ui.fragments.MainScreen
 import likco.myspeech.ui.fragments.SignupScreen
@@ -74,6 +75,7 @@ class MainActivity : ComponentActivity() {
                             Fragments.PROFILE-> ProfileScreen(currentState)
                             Fragments.SETTINGS-> SettingsScreen(currentState)
                             Fragments.SINGLECHATFRAGMENT-> SingleChatScreen(currentState)
+                            Fragments.CONTACTS-> ContactsScreen(currentState)
                         }
                     }
                 )

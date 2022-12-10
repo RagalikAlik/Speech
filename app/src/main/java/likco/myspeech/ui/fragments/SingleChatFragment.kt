@@ -46,14 +46,16 @@ fun SingleChatScreen(state: MutableState<Fragments>)= Column(
     modifier = Modifier
         .fillMaxWidth(),
 
-) {
+    ) {
     var message by remember {
         mutableStateOf("")
     }
 
     TopAppBar {
 
-        IconButton(onClick = {  }) {
+        IconButton(onClick = {
+            state.value = Fragments.MAIN
+        }) {
             Icon(Icons.Default.ArrowBack,
                 null,
                 modifier = Modifier
@@ -74,16 +76,13 @@ fun SingleChatScreen(state: MutableState<Fragments>)= Column(
 
     val messages = mutableStateListOf("speech", "huinya")
 
-
-
-
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .weight(1f),
         horizontalAlignment = Alignment.End,
 
-    ){
+        ){
         items(messages) {
             CreateMyMessage(message = it)
         }
@@ -104,6 +103,7 @@ fun SingleChatScreen(state: MutableState<Fragments>)= Column(
         IconButton(
             onClick = {
                 messages.add(message)
+
             },
             modifier= Modifier
                 .height(65.dp)

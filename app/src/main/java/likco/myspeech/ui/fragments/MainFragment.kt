@@ -113,6 +113,17 @@ fun MyColumn(state: MutableState<Fragments>) {
 
                     Button(
                         onClick = {
+                            state.value = Fragments.CONTACTS
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 25.dp)
+                    ) {
+                        Text(text = "Контакты")
+                    }
+
+                    Button(
+                        onClick = {
                             state.value = Fragments.MAIN
                         },
                         modifier = Modifier
