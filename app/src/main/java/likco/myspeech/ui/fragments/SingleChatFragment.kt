@@ -1,6 +1,7 @@
 package likco.myspeech.ui.fragments
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,10 +40,15 @@ import likco.myspeech.App
 import likco.myspeech.R
 import likco.myspeech.repository.models.CreateMyMessage
 import likco.myspeech.ui.Fragments
+import androidx.compose.ui.platform.LocalContext
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import likco.myspeech.repository.DataBaseRepository
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
-fun SingleChatScreen(state: MutableState<Fragments>)= Column(
+fun SingleChatScreen(state: MutableState<Fragments>, contactID: DataBaseRepository)= Column(
     modifier = Modifier
         .fillMaxWidth(),
 
@@ -100,8 +106,20 @@ fun SingleChatScreen(state: MutableState<Fragments>)= Column(
             modifier=Modifier.width(345.dp)
         )
 
+        val db: FirebaseFirestore= FirebaseFirestore.getInstance()
+        val dab= DataBaseRepository(db)
+
+        val context = LocalContext.current
         IconButton(
             onClick = {
+                if(message.isEmpty()){
+                    Toast.makeText(context, "Введите сообщение", Toast.LENGTH_SHORT).show()
+                } else {
+                    dab.sendMessage(context, message, contactID.ID, contactID.CHILD_TYPE){
+                        message=""
+                    }
+                }
+
                 messages.add(message)
 
             },

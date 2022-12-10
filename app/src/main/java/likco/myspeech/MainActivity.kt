@@ -16,12 +16,14 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import likco.myspeech.controllers.UserController
+import likco.myspeech.repository.DataBaseRepository
 import likco.myspeech.repository.UserRepository
 import likco.myspeech.ui.Fragments
 import likco.myspeech.ui.fragments.ContactsScreen
@@ -68,13 +70,16 @@ class MainActivity : ComponentActivity() {
                             mutableStateOf(Fragments.LOGIN)
                         }
 
+                        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+                        val dab= DataBaseRepository(db)
+
                         when (currentState.value) {
                             Fragments.LOGIN -> LoginScreen(currentState)
                             Fragments.SIGNUP -> SignupScreen(currentState)
                             Fragments.MAIN -> MainScreen(currentState)
                             Fragments.PROFILE-> ProfileScreen(currentState)
                             Fragments.SETTINGS-> SettingsScreen(currentState)
-                            Fragments.SINGLECHATFRAGMENT-> SingleChatScreen(currentState)
+                            Fragments.SINGLECHATFRAGMENT-> SingleChatScreen(currentState, dab)
                             Fragments.CONTACTS-> ContactsScreen(currentState)
                         }
                     }
