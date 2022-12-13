@@ -16,12 +16,15 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import likco.myspeech.App.initFirebase
 import likco.myspeech.controllers.UserController
 import likco.myspeech.repository.DataBaseRepository
 import likco.myspeech.repository.UserRepository
@@ -43,6 +46,8 @@ class MainActivity : ComponentActivity() {
         val db = Firebase.firestore
         val repo = UserRepository(db)
         App.userController = UserController(repo)
+
+        initFirebase()
 
         setContent {
             val scope = rememberCoroutineScope()
@@ -79,7 +84,7 @@ class MainActivity : ComponentActivity() {
                             Fragments.MAIN -> MainScreen(currentState)
                             Fragments.PROFILE-> ProfileScreen(currentState)
                             Fragments.SETTINGS-> SettingsScreen(currentState)
-                            Fragments.SINGLECHATFRAGMENT-> SingleChatScreen(currentState, dab)
+                            Fragments.SINGLECHATFRAGMENT-> SingleChatScreen(currentState, "rubec", "sobi")
                             Fragments.CONTACTS-> ContactsScreen(currentState)
                         }
                     }

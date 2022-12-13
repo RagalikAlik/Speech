@@ -48,7 +48,7 @@ import likco.myspeech.repository.DataBaseRepository
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
-fun SingleChatScreen(state: MutableState<Fragments>, contactID: DataBaseRepository)= Column(
+fun SingleChatScreen(state: MutableState<Fragments>,messageFrom:String, messageTo: String)= Column(
     modifier = Modifier
         .fillMaxWidth(),
 
@@ -112,14 +112,8 @@ fun SingleChatScreen(state: MutableState<Fragments>, contactID: DataBaseReposito
         val context = LocalContext.current
         IconButton(
             onClick = {
-                if(message.isEmpty()){
-                    Toast.makeText(context, "Введите сообщение", Toast.LENGTH_SHORT).show()
-                } else {
-                    dab.sendMessage(context, message, contactID.ID, contactID.CHILD_TYPE){
-                        message=""
-                    }
-                }
 
+                Toast.makeText(context, "сообщение не отправляется, иди нахуй", Toast.LENGTH_SHORT).show()
                 messages.add(message)
 
             },
@@ -136,5 +130,13 @@ fun SingleChatScreen(state: MutableState<Fragments>, contactID: DataBaseReposito
 
         }
     }
+
+}
+
+fun sendMessage(text: String){
+
+
+
+
 
 }
