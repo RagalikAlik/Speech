@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import likco.myspeech.App
-import likco.myspeech.R
 import likco.myspeech.repository.models.Contact
 import likco.myspeech.ui.Fragments
 import java.lang.IllegalArgumentException
@@ -103,14 +102,14 @@ fun ContactsScreen(state: MutableState<Fragments>)= Column(
         }
     }
 
-    val contacts= mutableListOf(R.drawable.empty_profile_picture,"amogus")
+    val contacts= App.getAllContacts(App.user?.login ?: "")
 
     LazyColumn(
         modifier = Modifier
         .weight(1f)
     ) {
-        items(contacts){
-            Contact(imageId = contacts[0] as Int, login = contacts[1] as String)
+            items(contacts){
+            Contact(login = it)
         }
     }
 }
@@ -120,4 +119,5 @@ private val showDialog = mutableStateOf(false)
 fun AlertNoSuchUser(){
     val context = LocalContext.current
     Toast.makeText(context, "No such user", Toast.LENGTH_SHORT).show()
+    showDialog.value=false
 }

@@ -16,9 +16,10 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import likco.myspeech.R
 
 @Composable
-fun Contact(imageId: Int, login:String)= Row(
+fun Contact(login:String)= Row(
     modifier= Modifier
         .fillMaxWidth()
         .height(50.dp)
@@ -27,7 +28,7 @@ fun Contact(imageId: Int, login:String)= Row(
 
     ) {
     Image(
-        bitmap = ImageBitmap.imageResource(imageId) ,
+        bitmap = ImageBitmap.imageResource(R.drawable.empty_profile_picture) ,
         contentDescription = "photo",
     )
 
