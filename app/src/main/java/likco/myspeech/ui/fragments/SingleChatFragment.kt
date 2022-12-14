@@ -4,13 +4,10 @@ import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -36,19 +33,15 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import likco.myspeech.App
 import likco.myspeech.R
 import likco.myspeech.repository.models.CreateMyMessage
 import likco.myspeech.ui.Fragments
 import androidx.compose.ui.platform.LocalContext
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import likco.myspeech.repository.DataBaseRepository
+import likco.myspeech.App
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
-fun SingleChatScreen(state: MutableState<Fragments>,messageFrom:String, messageTo: String)= Column(
+fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Column(
     modifier = Modifier
         .fillMaxWidth(),
 
@@ -77,10 +70,10 @@ fun SingleChatScreen(state: MutableState<Fragments>,messageFrom:String, messageT
                 .width(35.dp)
         )
 
-        Text(text = App.user?.login ?: "",fontSize = 20.sp)
+        Text(text = userToWrite,fontSize = 20.sp)
     }
 
-    val messages = mutableStateListOf("speech", "huinya")
+    val messages = mutableStateListOf("speech", "shit")
 
     LazyColumn(
         modifier = Modifier
@@ -106,14 +99,12 @@ fun SingleChatScreen(state: MutableState<Fragments>,messageFrom:String, messageT
             modifier=Modifier.width(345.dp)
         )
 
-        val db: FirebaseFirestore= FirebaseFirestore.getInstance()
-        val dab= DataBaseRepository(db)
-
         val context = LocalContext.current
         IconButton(
             onClick = {
 
-                Toast.makeText(context, "сообщение не отправляется, иди нахуй", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "сообщение не отправляется, иди на хуй", Toast.LENGTH_SHORT).show()
+                App.addMessageToDB(message, "text", App.user?.login ?: "", userToWrite)
                 messages.add(message)
 
             },
@@ -130,13 +121,5 @@ fun SingleChatScreen(state: MutableState<Fragments>,messageFrom:String, messageT
 
         }
     }
-
-}
-
-fun sendMessage(text: String){
-
-
-
-
 
 }

@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import likco.myspeech.App
+import likco.myspeech.MainActivity
 import likco.myspeech.repository.models.Contact
 import likco.myspeech.ui.Fragments
 import java.lang.IllegalArgumentException
@@ -109,7 +110,7 @@ fun ContactsScreen(state: MutableState<Fragments>)= Column(
         .weight(1f)
     ) {
             items(contacts){
-            Contact(login = it)
+            Contact(state, login = it)
         }
     }
 }
@@ -118,6 +119,6 @@ private val showDialog = mutableStateOf(false)
 @Composable
 fun AlertNoSuchUser(){
     val context = LocalContext.current
-    Toast.makeText(context, "No such user", Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, "Пользователь не найден", Toast.LENGTH_SHORT).show()
     showDialog.value=false
 }
