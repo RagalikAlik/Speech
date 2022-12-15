@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
@@ -20,8 +21,8 @@ object App {
 
     var userToWrite: String = ""
 
-    lateinit var AUTH: FirebaseAuth
-    lateinit var REF_DATABASE_ROOT: DatabaseReference
+    private lateinit var AUTH: FirebaseAuth
+    private lateinit var REF_DATABASE_ROOT: DatabaseReference
     lateinit var userController: UserController
     lateinit var onError: OnError
     lateinit var isDarkTheme: MutableState<Boolean>
@@ -53,7 +54,7 @@ object App {
         contactsSnapshot.documents.map { it.id }
     }
 
-    fun addMessageToDB(message: String, type: String, userFrom: String, userTo: String)= runBlocking{
+    fun addMessageToDB(message: String, type: String, userFrom: String, userTo: String) = runBlocking{
         val map = HashMap<String, Any>()
 
         map["message"] = message
@@ -65,5 +66,29 @@ object App {
         val db = Firebase.firestore
         db.collection("users").document(userFrom).collection("contacts")
             .document(userTo).collection("messages").document().set(map).await()
+    }
+
+    fun addMessageToFriendDB(message: String, type: String, userFrom: String, userTo: String) = runBlocking{
+        val map = HashMap<String, Any>()
+
+        map["message"] = message
+        map["type"] = type
+        map["userFrom"] = userTo
+        map["userTo"] = userFrom
+        map["TimeStamp"] = ServerValue.TIMESTAMP
+
+        val db = Firebase.firestore
+        db.collection("users").document(userTo).collection("contacts")
+            .document(userFrom).collection("messages").document().set(map).await()
+
+    }
+
+    fun readSenderMessagesFromDB(userFrom: String, userTo: String):List<MutableMap<String, Any>?> = runBlocking{
+
+        val db = Firebase.firestore
+        val messagesSnapshot = db.collection("users").document(userFrom).collection("contacts")
+            .document(userTo).collection("messages").get().await()
+
+        messagesSnapshot.documents.map { it.data }
     }
 }

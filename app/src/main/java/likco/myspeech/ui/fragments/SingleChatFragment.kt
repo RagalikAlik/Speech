@@ -38,6 +38,8 @@ import likco.myspeech.repository.models.CreateMyMessage
 import likco.myspeech.ui.Fragments
 import androidx.compose.ui.platform.LocalContext
 import likco.myspeech.App
+import likco.myspeech.App.readSenderMessagesFromDB
+import likco.myspeech.repository.models.CreateMessage
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
@@ -73,7 +75,8 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
         Text(text = userToWrite,fontSize = 20.sp)
     }
 
-    val messages = mutableStateListOf("speech", "shit")
+
+    val senderMessages = readSenderMessagesFromDB(App.user?.login ?: "", App.userToWrite)
 
     LazyColumn(
         modifier = Modifier
@@ -82,8 +85,12 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
         horizontalAlignment = Alignment.End,
 
         ){
-        items(messages) {
-            CreateMyMessage(message = it)
+        items(senderMessages) {
+            if(it?.get("userFrom").toString().equals(App.user?.login ?: ""))
+                CreateMyMessage(message = it?.get("message").toString())
+            else if(it?.get("userFrom").toString().equals(userToWrite))
+                CreateMessage(message = it?.get("message").toString())
+
         }
     }
     Row(
@@ -102,11 +109,9 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
         val context = LocalContext.current
         IconButton(
             onClick = {
-
                 Toast.makeText(context, "сообщение не отправляется, иди на хуй", Toast.LENGTH_SHORT).show()
                 App.addMessageToDB(message, "text", App.user?.login ?: "", userToWrite)
-                messages.add(message)
-
+                App.addMessageToFriendDB(message, "text", App.user?.login ?: "", userToWrite)
             },
             modifier= Modifier
                 .height(65.dp)
