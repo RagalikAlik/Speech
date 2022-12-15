@@ -3,7 +3,6 @@ package likco.myspeech.repository.models
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
@@ -17,14 +16,14 @@ fun CreateMessage(message: String){
     Row(
         horizontalArrangement = Arrangement.Start,
         modifier = Modifier
-            .fillMaxWidth()
+            .padding(start = 10.dp)
             .background(color = Color.Red)
     ) {
         Text(
             text=message,
             modifier = Modifier
-                .width(200.dp)
-                .padding(top=10.dp)
+                .width(250.dp)
+                .padding(top=10.dp, bottom = 10.dp),
         )
     }
 }

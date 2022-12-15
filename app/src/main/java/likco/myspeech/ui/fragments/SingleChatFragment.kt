@@ -86,9 +86,9 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
 
         ){
         items(senderMessages) {
-            if(it?.get("userFrom").toString().equals(App.user?.login ?: ""))
+            if((it?.get("userFrom").toString()) == (App.user?.login ?: ""))
                 CreateMyMessage(message = it?.get("message").toString())
-            else if(it?.get("userFrom").toString().equals(userToWrite))
+            else if((it?.get("userFrom").toString()) != (App.user?.login ?: ""))
                 CreateMessage(message = it?.get("message").toString())
 
         }
@@ -109,9 +109,11 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
         val context = LocalContext.current
         IconButton(
             onClick = {
-                Toast.makeText(context, "сообщение не отправляется, иди на хуй", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "сообщение отправляется...", Toast.LENGTH_SHORT).show()
                 App.addMessageToDB(message, "text", App.user?.login ?: "", userToWrite)
                 App.addMessageToFriendDB(message, "text", App.user?.login ?: "", userToWrite)
+
+                message =""
             },
             modifier= Modifier
                 .height(65.dp)

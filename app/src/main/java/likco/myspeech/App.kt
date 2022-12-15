@@ -73,8 +73,8 @@ object App {
 
         map["message"] = message
         map["type"] = type
-        map["userFrom"] = userTo
-        map["userTo"] = userFrom
+        map["userFrom"] = userFrom
+        map["userTo"] = userTo
         map["TimeStamp"] = ServerValue.TIMESTAMP
 
         val db = Firebase.firestore
