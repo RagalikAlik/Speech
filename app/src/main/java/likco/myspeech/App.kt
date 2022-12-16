@@ -7,14 +7,15 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.ktx.Firebase
+import com.google.type.DateTime
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import likco.myspeech.controllers.UserController
 import likco.myspeech.repository.UserRepository
 import likco.myspeech.repository.models.User
 import likco.myspeech.utils.OnError
+import java.util.Calendar
 
 object App {
     var user: User? = null
@@ -61,7 +62,7 @@ object App {
         map["type"] = type
         map["userFrom"] = userFrom
         map["userTo"] = userTo
-        map["TimeStamp"] = ServerValue.TIMESTAMP
+        map["TimeStamp"] = Calendar.getInstance().time;
 
         val db = Firebase.firestore
         db.collection("users").document(userFrom).collection("contacts")
@@ -83,7 +84,7 @@ object App {
 
     }
 
-    fun readSenderMessagesFromDB(userFrom: String, userTo: String):List<MutableMap<String, Any>?> = runBlocking{
+    fun readSenderMessagesFromDB(userFrom: String, userTo: String): List<MutableMap<String, Any>?> = runBlocking{
 
         val db = Firebase.firestore
         val messagesSnapshot = db.collection("users").document(userFrom).collection("contacts")
