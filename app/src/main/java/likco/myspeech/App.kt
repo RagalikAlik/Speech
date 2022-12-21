@@ -4,11 +4,9 @@ import androidx.compose.runtime.MutableState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ServerValue
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.type.DateTime
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import likco.myspeech.controllers.UserController
@@ -76,7 +74,7 @@ object App {
         map["type"] = type
         map["userFrom"] = userFrom
         map["userTo"] = userTo
-        map["TimeStamp"] = ServerValue.TIMESTAMP
+        map["TimeStamp"] = Calendar.getInstance().time
 
         val db = Firebase.firestore
         db.collection("users").document(userTo).collection("contacts")
@@ -92,4 +90,5 @@ object App {
 
         messagesSnapshot.documents.map { it.data }
     }
+
 }

@@ -74,8 +74,8 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
         Text(text = userToWrite,fontSize = 20.sp)
     }
 
-
-    val senderMessages = readSenderMessagesFromDB(App.user?.login ?: "", App.userToWrite)
+    val gotMessages = readSenderMessagesFromDB(App.user?.login ?: "", App.userToWrite)
+    val senderMessages = gotMessages.sortedWith(compareBy { it?.get("TimeStamp") as Comparable<*>? })
 
     LazyColumn(
         modifier = Modifier
@@ -89,7 +89,6 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
                 CreateMyMessage(message = it?.get("message").toString())
             else if((it?.get("userFrom").toString()) != (App.user?.login ?: ""))
                 CreateMessage(message = it?.get("message").toString())
-
         }
     }
     Row(
