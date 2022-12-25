@@ -37,7 +37,7 @@ import likco.myspeech.repository.models.CreateMyMessage
 import likco.myspeech.ui.Fragments
 import androidx.compose.ui.platform.LocalContext
 import likco.myspeech.App
-import likco.myspeech.App.readSenderMessagesFromDB
+import likco.myspeech.App.readMessagesFromDB
 import likco.myspeech.repository.models.CreateMessage
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnrememberedMutableState")
@@ -74,7 +74,7 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
         Text(text = userToWrite,fontSize = 20.sp)
     }
 
-    val gotMessages = readSenderMessagesFromDB(App.user?.login ?: "", App.userToWrite)
+    val gotMessages = readMessagesFromDB(App.user?.login ?: "", App.userToWrite)
     val senderMessages = gotMessages.sortedWith(compareBy { it?.get("TimeStamp") as Comparable<*>? })
 
     LazyColumn(
@@ -95,6 +95,7 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
         modifier = Modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.Bottom
+
 
     ) {
         OutlinedTextField(

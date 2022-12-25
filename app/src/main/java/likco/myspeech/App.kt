@@ -48,7 +48,8 @@ object App {
 
     fun getAllContacts(user: String): List<String> = runBlocking {
         val db = Firebase.firestore
-        val contactsSnapshot = db.collection("users").document(user).collection("contacts").get().await()
+        val contactsSnapshot = db.collection("users")
+            .document(user).collection("contacts").get().await()
 
         contactsSnapshot.documents.map { it.id }
     }
@@ -82,7 +83,7 @@ object App {
 
     }
 
-    fun readSenderMessagesFromDB(userFrom: String, userTo: String): List<MutableMap<String, Any>?> = runBlocking{
+    fun readMessagesFromDB(userFrom: String, userTo: String): List<MutableMap<String, Any>?> = runBlocking{
 
         val db = Firebase.firestore
         val messagesSnapshot = db.collection("users").document(userFrom).collection("contacts")

@@ -3,6 +3,8 @@ package likco.myspeech.ui.fragments
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -16,7 +18,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
+import likco.myspeech.App
 import likco.myspeech.R
+import likco.myspeech.repository.models.CreateChatElement
 import likco.myspeech.ui.Fragments
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -42,12 +46,25 @@ fun MyScaffold(state: MutableState<Fragments>) {
         topBar = { MyTopAppBar(scaffoldState = scaffoldState, scope = scope, state) },
         drawerContent = { MyColumn(state) },
         content = {
-            MyRow()
-            Button(onClick = { state.value=Fragments.SINGLECHATFRAGMENT }) {
-                
-            }
+            MyLazyColumn(state = state)
+            
         }
     )
+}
+
+@Composable
+fun MyLazyColumn(state: MutableState<Fragments>){
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ){
+        var contacts = App.getAllContacts(App.user?.login ?: "")
+
+        items(contacts){
+            CreateChatElement(state = state, login = it)
+        }
+    }
 }
 
 @Composable
@@ -74,6 +91,8 @@ fun MyTopAppBar(scaffoldState: ScaffoldState, scope: CoroutineScope, state: Muta
         },
         backgroundColor = colorResource(id = R.color.purple_200)
     )
+
+
 }
 
 @Composable
