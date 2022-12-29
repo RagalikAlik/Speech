@@ -45,14 +45,12 @@ import likco.myspeech.repository.models.CreateMessage
 fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Column(
     modifier = Modifier
         .fillMaxWidth(),
-
     ) {
     var message by remember {
         mutableStateOf("")
     }
 
     TopAppBar {
-
         IconButton(onClick = {
             state.value = Fragments.MAIN
         }) {
@@ -95,8 +93,6 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
         modifier = Modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.Bottom
-
-
     ) {
         OutlinedTextField(
             value = message,

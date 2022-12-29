@@ -24,4 +24,6 @@ fun CreateChatElement(state: MutableState<Fragments>, login:String)= Row(
         .fillMaxWidth()
 ) {
     Text(text = login)
+
+
 }

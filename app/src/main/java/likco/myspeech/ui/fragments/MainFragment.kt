@@ -59,7 +59,7 @@ fun MyLazyColumn(state: MutableState<Fragments>){
             .fillMaxWidth()
             .fillMaxHeight()
     ){
-        var contacts = App.getAllContacts(App.user?.login ?: "")
+        val contacts = App.getAllContacts(App.user?.login ?: "")
 
         items(contacts){
             CreateChatElement(state = state, login = it)
@@ -91,14 +91,6 @@ fun MyTopAppBar(scaffoldState: ScaffoldState, scope: CoroutineScope, state: Muta
         },
         backgroundColor = colorResource(id = R.color.purple_200)
     )
-
-
-}
-
-@Composable
-fun MyRow() {
-
-
 }
 
 @Composable
@@ -152,7 +144,6 @@ fun MyColumn(state: MutableState<Fragments>) {
                         Text(text = "Main Page")
                     }
                 }
-
             }
         )
         Box(modifier = Modifier
@@ -161,14 +152,11 @@ fun MyColumn(state: MutableState<Fragments>) {
             .weight(1f))
 
         Box(modifier = Modifier
-            //.background(Color.Blue)
             .background(White)
             .fillMaxWidth()
             .weight(1f))
 
         Box(modifier = Modifier
-            //.background(Color.Red)
-            // .background(Color.White)
             .fillMaxWidth()
             .weight(1f))
 

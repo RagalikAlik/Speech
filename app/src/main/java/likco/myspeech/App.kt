@@ -84,11 +84,9 @@ object App {
     }
 
     fun readMessagesFromDB(userFrom: String, userTo: String): List<MutableMap<String, Any>?> = runBlocking{
-
         val db = Firebase.firestore
         val messagesSnapshot = db.collection("users").document(userFrom).collection("contacts")
             .document(userTo).collection("messages").get().await()
-
         messagesSnapshot.documents.map { it.data }
     }
 
