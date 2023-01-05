@@ -2,22 +2,27 @@ package likco.myspeech.ui.fragments
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.annotation.UiThread
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -26,9 +31,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.input.key.Key.Companion.Refresh
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,10 +43,12 @@ import likco.myspeech.R
 import likco.myspeech.repository.models.CreateMyMessage
 import likco.myspeech.ui.Fragments
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.flow.flow
 import likco.myspeech.App
 import likco.myspeech.App.readMessagesFromDB
 import likco.myspeech.repository.models.CreateMessage
 
+@OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
 fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Column(
@@ -49,6 +58,9 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
     var message by remember {
         mutableStateOf("")
     }
+
+    val gotMessages = readMessagesFromDB(App.user?.login ?: "", App.userToWrite)
+    val senderMessages = gotMessages.sortedWith(compareBy { it?.get("TimeStamp") as Comparable<*>? })
 
     TopAppBar {
         IconButton(onClick = {
@@ -70,10 +82,21 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
         )
 
         Text(text = userToWrite,fontSize = 20.sp)
-    }
 
-    val gotMessages = readMessagesFromDB(App.user?.login ?: "", App.userToWrite)
-    val senderMessages = gotMessages.sortedWith(compareBy { it?.get("TimeStamp") as Comparable<*>? })
+        Box(
+            modifier = Modifier.weight(1f)
+        ) {
+        }
+
+        val context = LocalContext.current
+        IconButton(onClick = {
+            Toast.makeText(context, "Всего сообщений: " + senderMessages.size.toString(), Toast.LENGTH_SHORT).show()
+        }
+        ) {
+            Icon(Icons.Default.Info,
+                null)
+        }
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -81,13 +104,18 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
             .weight(1f),
         horizontalAlignment = Alignment.End,
 
+
+
         ){
         items(senderMessages) {
             if((it?.get("userFrom").toString()) == (App.user?.login ?: ""))
                 CreateMyMessage(message = it?.get("message").toString())
             else if((it?.get("userFrom").toString()) != (App.user?.login ?: ""))
                 CreateMessage(message = it?.get("message").toString())
+
+            //RefreshColumn()
         }
+
     }
     Row(
         modifier = Modifier
@@ -125,3 +153,11 @@ fun SingleChatScreen(state: MutableState<Fragments>, userToWrite: String)= Colum
     }
 
 }
+
+//@UiThread
+//@OptIn(ExperimentalComposeUiApi::class)
+//@Composable
+//fun RefreshColumn(){
+//    while (true)
+//        Refresh
+//}
